@@ -73,8 +73,9 @@ li {
 
 .distance-container {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -100%);
     z-index: 1;
 }
 
@@ -98,6 +99,13 @@ li {
 #buttons {
     position: absolute;
     bottom: 2px;
+    visibility: hidden;
+}
+
+#randomState {
+    position: absolute;
+    bottom: 1.5em;
+    right: 0px;
 }
 
 #results {

@@ -8,7 +8,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/accept_reject.css">
@@ -50,6 +50,13 @@
 
     <button onclick="animateMap()" class="do" id="animateMap">Mach etwas</button>
     <button onclick="repeatMap()" class="do" id="repeatMap">wiederholen</button>
+
+    <div id="randomState">
+        <input type="radio" id="random" name="random" value="1" checked>
+        <label for="random">zufällig</label> <br />
+        <input type="radio" id="not_random" name="random" value="0">
+        <label for="random">nacheinander</label>
+    </div>
 
     <div id="buttons">
         <button onclick="up()" class="actionButton">Norden</button>
@@ -116,6 +123,7 @@
     <script src="https://npmcdn.com/@turf/turf@5.1.6/turf.min.js"></script>
     <script src="js/map.js"></script>
     <script src="js/animate.js"></script>
+    <script src="js/saveFile.js"></script>
 
 </body>
 

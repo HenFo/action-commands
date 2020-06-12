@@ -8,18 +8,65 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+document.getElementById("not_random").addEventListener("change", function () {
+    toGo.push(state);
+    done = [];
+    prevState = -1;
+    state = 0;
+});
+
+document.getElementById("random").addEventListener("change", function () {
+    getNextState(true);
+});
+
+let randomButton = document.getElementById("random");
+let notRandomButton = document.getElementById("not_random");
+
+let animateButton = document.getElementById("animateMap");
+let repeatButton = document.getElementById("repeatMap");
+repeatButton.disabled = "disabled";
+
+let prevState = -1;
+let toGo = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
+let done = [];
+
+function getNextState(random) {
+    try {
+        if (random && randomButton.checked) {
+            let randomInt = Math.round(Math.random() * (toGo.length - 1));
+            let nState = toGo.splice(randomInt, 1)[0];
+            prevState = state;
+            state = nState;
+            done.push(state);
+        } else {
+            prevState = state++;
+            done.push(state);
+        }
+    } catch {
+        state = -1;
+    }
+}
+
 /* 
 0/1 = basic direction; 2/3 = combined direction
 */
-var state = 0;
+var state = -1;
+getNextState(true);
 var used = -1;
 let repeat = false;
 async function animateMap() {
+    randomButton.disabled = "disabled";
+    notRandomButton.disabled = "disabled";
+
     console.log(state);
-    let button1 = document.getElementById("animateMap");
-    let button2 = document.getElementById("repeatMap");
-    button1.disabled = "disabled";
-    button2.disabled = "disabled";
+
+    animateButton.disabled = "disabled";
+    repeatButton.disabled = "disabled";
+    if (prevState == 23) {
+        stopNextPrev();
+        await sleep(4000);
+    }
+
     switch (state) {
         case 0:
         case 1: {
@@ -56,7 +103,7 @@ async function animateMap() {
                 default:
                     break;
             }
-            state++;
+            getNextState(true);
             break;
         }
 
@@ -95,7 +142,7 @@ async function animateMap() {
                 default:
                     break;
             }
-            state++;
+            getNextState(true);
             break;
         }
 
@@ -103,7 +150,7 @@ async function animateMap() {
             zoomIn();
             await sleep(4000);
             resetPosition();
-            state++;
+            getNextState(true);
             break;
         }
 
@@ -111,7 +158,7 @@ async function animateMap() {
             zoomOut();
             await sleep(4000);
             resetPosition();
-            state++;
+            getNextState(true);
             break;
         }
 
@@ -119,29 +166,29 @@ async function animateMap() {
             rotate(45);
             await sleep(4000);
             resetPosition();
-            state++;
+            getNextState(true);
             break;
         }
         case 7: {
             rotate(90);
-            state++;
+            getNextState(false);
             break;
         }
         case 8: {
             pitch(45);
-            state++;
+            getNextState(false);
             break;
         }
         case 9: {
             resetView();
-            state++;
+            getNextState(true);
             break;
         }
 
         // Ansicht zurück auf Startposition
         case 10: {
-            // resetPosition();
-            // await sleep(4000);
+            resetPosition();
+            await sleep(4000);
             addMarker();
             await sleep(2000)
             map.panTo([-74.3, 40.1])
@@ -151,57 +198,57 @@ async function animateMap() {
             map.panTo([-74.7, 40.15])
             await sleep(2000);
             addMarker();
-            state++;
+            getNextState(false);
             break;
         }
         case 11: {
             clearMarker();
-            state++;
+            getNextState(true);
             break;
         }
         case 12: {
             showMenu();
-            state++;
+            getNextState(false);
             break;
         }
         case 13: {
             hideMenu();
-            state++;
+            getNextState(true);
             break;
         }
         case 14: {
             showHelp();
-            state++;
+            getNextState(false);
             break;
         }
         case 15: {
             hideHelp();
-            state++;
+            getNextState(true);
             break;
         }
         case 16: {
             showSearch();
-            state++;
+            getNextState(false);
             break;
         }
         case 17: {
             hideSearch();
-            state++;
+            getNextState(true);
             break;
         }
         case 18: {
-            fakeUserLocation();
-            state++;
+            await fakeUserLocation();
+            getNextState(true);
             break;
         }
         case 19: {
             sateliteBasemap();
-            state++;
+            getNextState(false);
             break;
         }
         case 20: {
             vectorBasemap();
-            state++;
+            getNextState(true);
             break;
         }
         //auf Startansicht reseten
@@ -220,7 +267,7 @@ async function animateMap() {
             setPoint();
             await sleep(5000);
             deactivateDistanceMeasurements();
-            state++;
+            getNextState(true);
             break;
         }
 
@@ -231,7 +278,7 @@ async function animateMap() {
             await sleep(5000);
             next();
             await sleep(5000);
-            state++;
+            getNextState(false);
             break;
         }
 
@@ -240,19 +287,18 @@ async function animateMap() {
             await sleep(5000);
             prev();
             await sleep(5000);
-            state++;
+            getNextState(true);
             break;
         }
 
         case 24: {
-            stopNextPrev();
             await aniAcc();
-            state++;
+            getNextState(true);
             break;
         }
         case 25: {
-            await aniRej();            
-            state++;
+            await aniRej();
+            getNextState(true);
             break;
         }
 
@@ -262,7 +308,7 @@ async function animateMap() {
             await selectSingle();
             await sleep(5000);
             stopSelectSingle();
-            state++;
+            getNextState(true);
             break;
         }
 
@@ -270,16 +316,19 @@ async function animateMap() {
         default:
             state = 0;
             resetPosition();
+            download(done, "Reihenfolge.txt", "text/plain;charset=utf-8");
             break;
 
     }
-    button1.disabled = "";
-    button2.disabled = "";
+    animateButton.disabled = "";
+    repeatButton.disabled = "";
 
 }
 
 async function repeatMap() {
-    switch (--state) {
+    animateButton.disabled = "disabled";
+    repeatButton.disabled = "disabled";
+    switch (prevState) {
         case 0:
         case 1:
         case 2:
@@ -368,11 +417,71 @@ async function repeatMap() {
             await sleep(3000);
             break;
         }
+        case 12: {
+            let menu = document.getElementById("menu");
+            menu.style.transitionDuration = "0s";
+            hideMenu();
+            await sleep(500);
+            menu.style.transitionDuration = "";
+            await sleep(3000);
+            break;
+        }
+        case 13: {
+            let menu = document.getElementById("menu");
+            menu.style.transitionDuration = "0s";
+            showMenu();
+            await sleep(500);
+            menu.style.transitionDuration = "";
+            await sleep(3000);
+            break;
+        }
+        case 14: {
+            let menu = document.getElementById("help");
+            menu.style.transitionDuration = "0s";
+            hideHelp();
+            await sleep(500);
+            menu.style.transitionDuration = "";
+            await sleep(3000);
+            break;
+        }
+        case 15: {
+            let menu = document.getElementById("help");
+            menu.style.transitionDuration = "0s";
+            showHelp();
+            await sleep(500);
+            menu.style.transitionDuration = "";
+            await sleep(3000);
+            break;
+        }
+        case 16: {
+            let menu = document.getElementById("searchbar");
+            menu.style.transitionDuration = "0s";
+            hideSearch();
+            await sleep(500);
+            menu.style.transitionDuration = "";
+            await sleep(3000);
+            break;
+        }
+        case 17: {
+            let menu = document.getElementById("searchbar");
+            menu.style.transitionDuration = "0s";
+            showSearch();
+            await sleep(500);
+            menu.style.transitionDuration = "";
+            await sleep(3000);
+            break;
+        }
 
 
         default:
             break;
     }
+    if (![8, 11, 13, 15, 17, 20, 23].includes(state)) {
+        toGo.push(done.splice(-1,1)[0]);
+    } else {
+        done.splice(-1,1);
+    }
+    state = prevState;
     animateMap();
     repeat = false;
 }

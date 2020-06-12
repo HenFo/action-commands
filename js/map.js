@@ -4,7 +4,7 @@ var map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-74.5, 40],
     zoom: 9,
-    // interactive: false
+    interactive: false
 });
 
 var compass = new mapboxgl.NavigationControl({
@@ -290,35 +290,50 @@ MENU NAVIGATION
 */
 
 function hideMenu() {
-    $("#menu").css("left", "-15.5em");
+    // $("#menu").css("left", "-15.5em");
+    document.getElementById("menu").style.left = "-15.5em";
 }
 
 function showMenu() {
-    $("#menu").css("left", ".75em");
+    // $("#menu").css("left", ".75em");
+    document.getElementById("menu").style.left = ".75em";
+
 }
 
 function hideResults() {
-    $("#results").css("left", "-15.5em");
+    // $("#results").css("left", "-15.5em");
+    document.getElementById("results").style.left = "-15.5em";
+
 }
 
 function showResults() {
-    $("#results").css("left", ".75em");
+    // $("#results").css("left", ".75em");
+    document.getElementById("results").style.left = ".75em";
+
 }
 
 function hideHelp() {
-    $("#help").css("left", "-15.5em");
+    // $("#help").css("left", "-15.5em");
+    document.getElementById("help").style.left = "-15.5em";
+
 }
 
 function showHelp() {
-    $("#help").css("left", ".75em");
+    // $("#help").css("left", ".75em");
+    document.getElementById("help").style.left = ".75em";
+
 }
 
 function showSearch() {
-    $("#searchbar").css("top", "1em");
+    // $("#searchbar").css("top", "1em");
+    document.getElementById("searchbar").style.top = "1em";
+
 }
 
 function hideSearch() {
-    $("#searchbar").css("top", "-5em");
+    // $("#searchbar").css("top", "-5em");
+    document.getElementById("searchbar").style.top = "-5em";
+
 
 }
 
