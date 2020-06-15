@@ -314,7 +314,7 @@ async function animateMap() {
 
         //////////////////
         default:
-            state = 0;
+            state = -1;
             resetPosition();
             download(done, "Reihenfolge.txt", "text/plain;charset=utf-8");
             break;
