@@ -119,7 +119,7 @@ let marker = [];
 
 function initSelectSingle() {
     let resluts = document.getElementById("resultList");
-    resluts.innerHTML = "<li>Ort a</li><li>Ort b</li><li>Ort c</li><li>Ort d</li>";
+    resluts.innerHTML = "<ol><li>Ort a</li><li>Ort b</li><li>Ort c</li><li>Ort d</li></ol>";
 
     let waypoints = [
         [-74.277018, 40.251148],
@@ -158,7 +158,7 @@ async function selectSingle() {
     } while (randomSelection == lastSelected);
     lastSelected = randomSelection;
 
-    let obj = document.querySelector(`#resultList > li:nth-child(${randomSelection+1})`);
+    let obj = document.querySelector(`#resultList > * > li:nth-child(${randomSelection+1})`);
 
 
     obj.style.backgroundColor = "#c7c7c7";
@@ -166,7 +166,7 @@ async function selectSingle() {
 
     await sleep(3000);
 
-    document.querySelectorAll("#resultList > li").forEach(li => {
+    document.querySelectorAll("#resultList > * > li").forEach(li => {
         li.style.fontWeight = "";
         li.style.color = "";
     })
@@ -201,7 +201,7 @@ let position = 0;
 
 function initPrevNext() {
     let resluts = document.getElementById("resultList");
-    resluts.innerHTML = "<li>Ort a</li><li>Ort b</li><li>Ort c</li>";
+    resluts.innerHTML = "<ul><li>Ort a</li><li>Ort b</li><li>Ort c</li></ul>";
 
     // Empire State, WiBRidge, Liberty
     let waypoints = [
@@ -223,7 +223,7 @@ function initPrevNext() {
     });
 
     showResults();
-    let obj = document.querySelector("#resultList > li:nth-child(1)");
+    let obj = document.querySelector("#resultList > * > li:nth-child(1)");
     obj.style.fontWeight = "bolder";
     obj.style.color = "#525252";
 }
@@ -234,13 +234,13 @@ async function next() {
     await sleep(2000);
     button.style.backgroundColor = "";
 
-    let obj = document.querySelector(`#resultList > li:nth-child(${position+1})`);
+    let obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
     obj.style.fontWeight = "";
     obj.style.color = "";
 
     position = (position + 1) % 3;
 
-    obj = document.querySelector(`#resultList > li:nth-child(${position+1})`);
+    obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
     obj.style.fontWeight = "bolder";
     obj.style.color = "#525252";
 
@@ -257,13 +257,13 @@ async function prev() {
     await sleep(2000);
     button.style.backgroundColor = "";
 
-    let obj = document.querySelector(`#resultList > li:nth-child(${position+1})`);
+    let obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
     obj.style.fontWeight = "";
     obj.style.color = "";
 
     position = position - 1 < 0 ? 2 : position - 1;
 
-    obj = document.querySelector(`#resultList > li:nth-child(${position+1})`);
+    obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
     obj.style.fontWeight = "bolder";
     obj.style.color = "#525252";
 
