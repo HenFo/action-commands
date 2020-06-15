@@ -19,7 +19,7 @@
     bottom: 2em;    
 }
 
-#accept-reject > #text {
+#accept-reject > h3 {
     text-align: center;
 }
 
