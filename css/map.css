@@ -122,3 +122,11 @@ li {
 #accept-reject {
     visibility: hidden;
 }
+
+h3 {
+    text-decoration: underline;
+}
+
+.no-meaning {
+    text-decoration: none;
+}
