@@ -329,15 +329,8 @@ async function animateMap() {
 async function repeatMap() {
     animateButton.disabled = "disabled";
     repeatButton.disabled = "disabled";
+    repeat = true;
     switch (prevState) {
-        case 0:
-        case 1:
-        case 2:
-        case 3: {
-            repeat = true;
-            break;
-        }
-
         case 7: {
             resetPosition();
             await sleep(3000);
