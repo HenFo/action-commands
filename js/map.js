@@ -143,7 +143,7 @@ function initSelectSingle() {
 
     document.querySelectorAll("#results > button").forEach(button => {
         console.log(button);
-        
+
         button.style.visibility = "hidden";
     })
 
@@ -151,12 +151,17 @@ function initSelectSingle() {
 }
 
 let lastSelected = -1;
-async function selectSingle() {
+async function selectSingle(repeat) {
+
     let randomSelection = -1;
-    do {
-        randomSelection = Math.round(Math.random() * 3);
-    } while (randomSelection == lastSelected);
-    lastSelected = randomSelection;
+    if (!repeat) {
+        do {
+            randomSelection = Math.round(Math.random() * 3);
+        } while (randomSelection == lastSelected);
+        lastSelected = randomSelection;
+    } else {
+        randomSelection = lastSelected;
+    }
 
     let obj = document.querySelector(`#resultList > * > li:nth-child(${randomSelection+1})`);
 

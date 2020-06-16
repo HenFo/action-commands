@@ -305,7 +305,7 @@ async function animateMap() {
         case 26: {
             initSelectSingle();
             await sleep(3000);
-            await selectSingle();
+            await selectSingle(repeat);
             await sleep(5000);
             stopSelectSingle();
             getNextState(true);
@@ -315,6 +315,7 @@ async function animateMap() {
         //////////////////
         default:
             state = -1;
+            prevState = -1;
             resetPosition();
             download(done, "Reihenfolge.txt", "text/plain;charset=utf-8");
             break;
