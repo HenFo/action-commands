@@ -476,6 +476,6 @@ async function repeatMap() {
         done.splice(-1,1);
     }
     state = prevState;
-    animateMap();
+    await animateMap();
     repeat = false;
 }
