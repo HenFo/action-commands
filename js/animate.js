@@ -27,7 +27,7 @@ let repeatButton = document.getElementById("repeatMap");
 repeatButton.disabled = "disabled";
 
 let prevState = -1;
-let toGo = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
+let toGo = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
 let done = [];
 
 function getNextState(random) {
@@ -171,16 +171,46 @@ async function animateMap() {
         }
         case 7: {
             rotate(90);
-            getNextState(false);
+            await sleep(4000);
+            resetPosition();
+            getNextState(true);
             break;
         }
         case 8: {
             pitch(45);
-            getNextState(false);
+            await sleep(4000);
+            resetPosition();
+            getNextState(true);
             break;
         }
         case 9: {
+            map.jumpTo({
+                center: [-74.5, 40],
+                zoom: 9,
+                pitch: 50,
+                bearing: 137
+            });
+            await sleep(3000);
             resetView();
+            await sleep(4000);
+            map.jumpTo({
+                center: [-74.5, 40],
+                zoom: 9,
+                pitch: 20,
+                bearing: 300
+            });
+            await sleep(3000);
+            resetView();
+            await sleep(4000);
+            map.jumpTo({
+                center: [-74.5, 40],
+                zoom: 9,
+                pitch: 60,
+                bearing: 200
+            });
+            await sleep(3000);
+            resetView();
+            await sleep(4000);
             getNextState(true);
             break;
         }
@@ -198,6 +228,8 @@ async function animateMap() {
             map.panTo([-74.7, 40.15])
             await sleep(2000);
             addMarker();
+            await sleep(2000);
+            resetPosition();
             getNextState(false);
             break;
         }
@@ -331,27 +363,6 @@ async function repeatMap() {
     repeatButton.disabled = "disabled";
     repeat = true;
     switch (prevState) {
-        case 7: {
-            resetPosition();
-            await sleep(3000);
-            break;
-        }
-        case 8: {
-            map.jumpTo({
-                pitch: 0,
-                bearing: 90
-            });
-            await sleep(3000);
-            break;
-        }
-        case 9: {
-            map.jumpTo({
-                pitch: 45,
-                bearing: 90
-            });
-            await sleep(3000);
-            break;
-        }
         case 10: {
             resetPosition();
             clearMarker();
@@ -370,7 +381,7 @@ async function repeatMap() {
                     .addTo(map);
                 markers.push(marker);
             }
-            await sleep(1000);
+            await sleep(3000);
             break;
         }
         case 19: {
@@ -384,7 +395,7 @@ async function repeatMap() {
             break;
         }
         case 22: {
-            let objs = document.querySelectorAll("#resultList > li");
+            let objs = document.querySelectorAll("#resultList > * > li");
             objs.forEach(li => {
                 li.style.fontWeight = "";
                 li.style.color = "";
@@ -396,11 +407,11 @@ async function repeatMap() {
             stopNextPrev();
             initPrevNext();
             position = 2;
-            let obj = document.querySelector(`#resultList > li:nth-child(${1})`);
+            let obj = document.querySelector(`#resultList > * > li:nth-child(${1})`);
             obj.style.fontWeight = "";
             obj.style.color = "";
 
-            obj = document.querySelector(`#resultList > li:nth-child(${position+1})`);
+            obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
             obj.style.fontWeight = "bolder";
             obj.style.color = "#525252";
 
@@ -470,10 +481,10 @@ async function repeatMap() {
         default:
             break;
     }
-    if (![8, 11, 13, 15, 17, 20, 23].includes(state)) {
-        toGo.push(done.splice(-1,1)[0]);
+    if (![11, 13, 15, 17, 20, 23].includes(state)) {
+        toGo.push(done.splice(-1, 1)[0]);
     } else {
-        done.splice(-1,1);
+        done.splice(-1, 1);
     }
     state = prevState;
     await animateMap();
