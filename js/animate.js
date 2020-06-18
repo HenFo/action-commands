@@ -234,7 +234,12 @@ async function animateMap() {
             break;
         }
         case 11: {
+            let trash = document.getElementById("trash");
+            trash.style.visibility = "visible";
+            await sleep(2000);
             clearMarker();
+            await sleep(1000);
+            trash.style.visibility = "";
             getNextState(true);
             break;
         }

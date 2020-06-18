@@ -235,7 +235,7 @@ function initPrevNext() {
 
 async function next() {
     const button = document.getElementById("next");
-    button.style.backgroundColor = "#c2c2c2";
+    button.style.backgroundColor = "#ff00bb";
     await sleep(2000);
     button.style.backgroundColor = "";
 
@@ -258,7 +258,7 @@ async function next() {
 }
 async function prev() {
     const button = document.getElementById("prev");
-    button.style.backgroundColor = "#c2c2c2";
+    button.style.backgroundColor = "#ff00bb";
     await sleep(2000);
     button.style.backgroundColor = "";
 

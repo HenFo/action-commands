@@ -116,7 +116,7 @@ li {
     font-weight: bolder;
     font-size: larger;
     width: 5em;
-    height: 1.5em;
+    height: 2em;
 }
 
 #accept-reject {
@@ -129,4 +129,16 @@ h3 {
 
 .no-meaning {
     text-decoration: none;
+}
+
+#trash {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    font-size: 100px;
+    color: red;
+    visibility: hidden;
 }
