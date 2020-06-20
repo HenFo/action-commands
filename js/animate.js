@@ -26,14 +26,28 @@ let animateButton = document.getElementById("animateMap");
 let repeatButton = document.getElementById("repeatMap");
 repeatButton.disabled = "disabled";
 
+let counter = 0;
+let counterDiv = document.getElementById("counter");
+counterDiv.innerHTML = counter + " / 27";
+
 let prevState = -1;
 let toGo = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
 let done = [];
 
 function getNextState(random) {
+    counterDiv.innerHTML = counter++ + " / 27";
     try {
         if (random && randomButton.checked) {
             let randomInt = Math.round(Math.random() * (toGo.length - 1));
+
+            if(state == 6) {
+                let i = toGo.findIndex((e) => e == 7);
+                randomInt = i>0 ? i : randomInt;
+            } else if (state == 7) {
+                let i = toGo.findIndex((e) => e == 6);
+                randomInt = i>0 ? i : randomInt;
+            }
+
             let nState = toGo.splice(randomInt, 1)[0];
             prevState = state;
             state = nState;
@@ -47,9 +61,7 @@ function getNextState(random) {
     }
 }
 
-/* 
-0/1 = basic direction; 2/3 = combined direction
-*/
+
 var state = -1;
 getNextState(true);
 var used = -1;
@@ -364,6 +376,7 @@ async function animateMap() {
 }
 
 async function repeatMap() {
+    counter--;
     animateButton.disabled = "disabled";
     repeatButton.disabled = "disabled";
     repeat = true;

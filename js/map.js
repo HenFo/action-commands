@@ -205,8 +205,8 @@ function stopSelectSingle() {
 let position = 0;
 
 function initPrevNext() {
-    let resluts = document.getElementById("resultList");
-    resluts.innerHTML = "<ul><li>Ort a</li><li>Ort b</li><li>Ort c</li></ul>";
+    // let resluts = document.getElementById("resultList");
+    // resluts.innerHTML = "<ul><li>Ort a</li><li>Ort b</li><li>Ort c</li></ul>";
 
     // Empire State, WiBRidge, Liberty
     let waypoints = [
@@ -227,10 +227,13 @@ function initPrevNext() {
         zoom: 12
     });
 
-    showResults();
-    let obj = document.querySelector("#resultList > * > li:nth-child(1)");
-    obj.style.fontWeight = "bolder";
-    obj.style.color = "#525252";
+    let buttons = document.getElementById("next-prev");
+    buttons.style.visibility = "visible";
+
+    // showResults();
+    // let obj = document.querySelector("#resultList > * > li:nth-child(1)");
+    // obj.style.fontWeight = "bolder";
+    // obj.style.color = "#525252";
 }
 
 async function next() {
@@ -239,15 +242,15 @@ async function next() {
     await sleep(2000);
     button.style.backgroundColor = "";
 
-    let obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
-    obj.style.fontWeight = "";
-    obj.style.color = "";
+    // let obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
+    // obj.style.fontWeight = "";
+    // obj.style.color = "";
 
     position = (position + 1) % 3;
 
-    obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
-    obj.style.fontWeight = "bolder";
-    obj.style.color = "#525252";
+    // obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
+    // obj.style.fontWeight = "bolder";
+    // obj.style.color = "#525252";
 
 
     map.flyTo({
@@ -262,15 +265,15 @@ async function prev() {
     await sleep(2000);
     button.style.backgroundColor = "";
 
-    let obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
-    obj.style.fontWeight = "";
-    obj.style.color = "";
+    // let obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
+    // obj.style.fontWeight = "";
+    // obj.style.color = "";
 
     position = position - 1 < 0 ? 2 : position - 1;
 
-    obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
-    obj.style.fontWeight = "bolder";
-    obj.style.color = "#525252";
+    // obj = document.querySelector(`#resultList > * > li:nth-child(${position+1})`);
+    // obj.style.fontWeight = "bolder";
+    // obj.style.color = "#525252";
 
 
     map.flyTo({
@@ -286,8 +289,11 @@ function stopNextPrev() {
     }
     marker = [];
     position = 0;
-    hideResults();
+    // hideResults();
     resetPosition();
+
+    let buttons = document.getElementById("next-prev");
+    buttons.style.visibility = "";
 }
 
 /*
