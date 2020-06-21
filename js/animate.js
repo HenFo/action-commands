@@ -64,7 +64,8 @@ function getNextState(random) {
 
 var state = -1;
 getNextState(true);
-var used = -1;
+var used1 = -1;
+var used2 = -1;
 let repeat = false;
 async function animateMap() {
     randomButton.disabled = "disabled";
@@ -86,11 +87,11 @@ async function animateMap() {
             if (!repeat) {
                 do {
                     selec = Math.round(Math.random() * 3);
-                } while (selec == used)
+                } while (selec == used1)
             } else {
-                selec = used;
+                selec = used1;
             }
-            used = selec;
+            used1 = selec;
             switch (selec) {
                 case 0:
                     up();
@@ -125,11 +126,11 @@ async function animateMap() {
             if (!repeat) {
                 do {
                     selec = Math.round(Math.random() * 3 + 4);
-                } while (selec == used)
+                } while (selec == used2)
             } else {
-                selec = used;
+                selec = used2;
             }
-            used = selec;
+            used2 = selec;
             switch (selec) {
                 case 4:
                     upRight();
