@@ -31,7 +31,7 @@ let counterDiv = document.getElementById("counter");
 counterDiv.innerHTML = counter + " / 27";
 
 let prevState = -1;
-let toGo = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
+let toGo = [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
 let done = [];
 
 function getNextState(random) {
@@ -40,13 +40,13 @@ function getNextState(random) {
         if (random && randomButton.checked) {
             let randomInt = Math.round(Math.random() * (toGo.length - 1));
 
-            if(state == 6) {
-                let i = toGo.findIndex((e) => e == 7);
-                randomInt = i>0 ? i : randomInt;
-            } else if (state == 7) {
-                let i = toGo.findIndex((e) => e == 6);
-                randomInt = i>0 ? i : randomInt;
-            }
+            // if(state == 6) {
+            //     let i = toGo.findIndex((e) => e == 7);
+            //     randomInt = i>0 ? i : randomInt;
+            // } else if (state == 7) {
+            //     let i = toGo.findIndex((e) => e == 6);
+            //     randomInt = i>0 ? i : randomInt;
+            // }
 
             let nState = toGo.splice(randomInt, 1)[0];
             prevState = state;
@@ -182,7 +182,7 @@ async function animateMap() {
             getNextState(true);
             break;
         }
-        case 7: {
+        case 7: { //deactivated
             rotate(90);
             await sleep(4000);
             resetPosition();
