@@ -28,14 +28,14 @@ repeatButton.disabled = "disabled";
 
 let counter = 0;
 let counterDiv = document.getElementById("counter");
-counterDiv.innerHTML = counter + " / 27";
+counterDiv.innerHTML = counter + " / 26";
 
 let prevState = -1;
 let toGo = [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 14, 16, 18, 19, 21, 22, 24, 25, 26];
 let done = [];
 
 function getNextState(random) {
-    counterDiv.innerHTML = counter++ + " / 27";
+    counterDiv.innerHTML = counter++ + " / 26";
     try {
         if (random && randomButton.checked) {
             let randomInt = Math.round(Math.random() * (toGo.length - 1));
