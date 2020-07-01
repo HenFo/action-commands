@@ -484,7 +484,6 @@ function setPoint() {
             // Populate the distanceContainer with total distance
             var value = document.createElement('pre');
             value.textContent =
-                'Total distance: ' +
                 turf.length(linestring).toLocaleString() +
                 'km';
             distanceContainer.appendChild(value);
